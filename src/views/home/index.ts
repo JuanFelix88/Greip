@@ -7,6 +7,8 @@ declare namespace globalThis {
 }
 
 export const renderView = async () => {
+  await renderLoading()
+
   // Create a screen object.
   const screen = (globalThis.screenApp =
     globalThis.screenApp ||
@@ -15,9 +17,9 @@ export const renderView = async () => {
       autoPadding: true
     }))
 
-  await renderLoading(screen)
-
   screen.append(await menuProjects(screen))
+
+  screen.render()
 
   // Quit on Escape, q, or Control-C.
   screen.key(['escape', 'q', 'C-c'], function(ch, key) {
