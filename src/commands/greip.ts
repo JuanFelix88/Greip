@@ -1,11 +1,10 @@
 import { GluegunCommand } from 'gluegun'
+import { renderView } from '../views/home'
 
 const command: GluegunCommand = {
   name: 'greip',
   run: async toolbox => {
-    const { print } = toolbox
-
-    print.info('Welcome to your CLI')
+    await renderView()
   }
 }
 

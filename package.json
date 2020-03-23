@@ -1,8 +1,7 @@
 {
   "name": "greip",
-  "version": "0.0.1",
-  "description": "greip CLI",
-  "private": true,
+  "version": "0.2.0",
+  "description": "Greip CLI",
   "types": "build/types/types.d.ts",
   "bin": {
     "greip": "bin/greip"
@@ -13,7 +12,7 @@
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
     "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
-    "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
+    "build": "yarn clean-build && yarn compile",
     "prepublishOnly": "yarn build",
     "test": "jest",
     "watch": "jest --watch",
@@ -33,6 +32,9 @@
   "dependencies": {
     "@types/chalk": "^2.2.0",
     "@types/inquirer": "^6.5.0",
+    "@types/react": "^16.9.25",
+    "@types/react-blessed": "^0.3.2",
+    "blessed": "^0.1.81",
     "chalk": "^3.0.0",
     "gluegun": "latest",
     "inquirer": "^7.1.0",

@@ -6,3 +6,5 @@ coverage
 dist
 build
 .vscode
+yarn-error.log
+yarn.lock

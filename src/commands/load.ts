@@ -1,10 +1,8 @@
 import { GluegunToolbox } from 'gluegun'
 import { prompt } from 'inquirer'
 import suggest from 'inquirer-prompt-suggest'
-import { Projects } from '../../database'
+import { Projects } from '../database'
 import { spawn } from 'child_process'
-
-prompt.registerPrompt('suggest', suggest)
 
 export default {
   name: 'load',
@@ -17,7 +15,9 @@ export default {
       system
     } = toolbox
 
-    const projectName = parameters.first as string | undefined
+    prompt.registerPrompt('suggest', suggest)
+
+    const projectName = parameters.first
 
     if (!projectName) {
       const projects = await Projects.findAll(() => true)
@@ -39,10 +39,12 @@ export default {
 
       await system.exec(`code ${dir}`)
 
-      spawn('bash', ['-i'], {
-        cwd: dir,
-        stdio: 'inherit'
-      })
+      process.chdir(dir)
+
+      // spawn('bash', ['-i'], {
+      //   cwd: dir,
+      //   stdio: 'inherit'
+      // })
 
       success('Project loaded!')
     } else {

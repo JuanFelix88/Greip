@@ -1,26 +1,28 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "allowSyntheticDefaultImports": false,
     "esModuleInterop": true,
+    "allowUmdGlobalAccess": true,
     "experimentalDecorators": true,
+    "allowUnreachableCode": true,
     "lib": [
       "es2015",
-      "scripthost",
       "es2015.promise",
       "es2015.generator",
       "es2015.iterable",
       "dom"
     ],
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
+    "noImplicitThis": false,
+    "noUnusedLocals": false,
     "sourceMap": false,
     "inlineSourceMap": true,
     "outDir": "build",
     "strict": false,
-    "target": "es5",
+    "target": "ES2017",
     "declaration": true,
     "declarationDir": "build/types"
   },

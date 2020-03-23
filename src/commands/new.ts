@@ -2,14 +2,13 @@ import { GluegunToolbox } from 'gluegun'
 import { prompt } from 'inquirer'
 import suggest from 'inquirer-prompt-suggest'
 import { dirname } from 'path'
-import { Projects } from '../../database'
-
-prompt.registerPrompt('suggest', suggest)
+import { Projects } from '../database'
 
 export default {
   name: 'new',
   alias: ['n'],
   run: async (toolbox: GluegunToolbox) => {
+    prompt.registerPrompt('suggest', suggest)
     const {
       parameters: { first },
       filesystem: { cwd },

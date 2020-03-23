@@ -1,0 +1,19 @@
+{
+  "login": { "nick": null, "pass": null, "token": null },
+  "models": {
+    "projects": {
+      "meta": { "protocol": 4 },
+      "data": [
+        {
+          "id": 4,
+          "libs": [],
+          "createdAt": "2020-03-23T03:13:49.738Z",
+          "userName": "unknown",
+          "dir": "C:\\Users\\Admin\\documents\\GitHub\\greip",
+          "mode": "Public",
+          "name": "Greip"
+        }
+      ]
+    }
+  }
+}

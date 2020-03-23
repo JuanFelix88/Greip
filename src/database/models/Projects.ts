@@ -1,4 +1,4 @@
-import { readDatabase, writeDatabase, getProxId } from '../'
+import { readDatabase, writeDatabase, getProxId } from '..'
 
 export interface Project {
   id: number
@@ -7,6 +7,9 @@ export interface Project {
   dir: string
   mode: 'private' | 'public'
   pass?: string
+  userName: string
+  userId?: number
+  createdAt: string
 }
 
 export interface InputProject {
@@ -33,6 +36,8 @@ export async function createNewProject(data: InputProject): Promise<Project> {
     dataBase.models.projects.data.push({
       id: getProxId<Project>(dataBase.models.projects),
       libs: [],
+      createdAt: new Date().toISOString(),
+      userName: 'unknown',
       ...data
     }) - 1
 
