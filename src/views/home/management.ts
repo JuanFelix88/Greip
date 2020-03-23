@@ -1,14 +1,35 @@
 import * as blessed from 'blessed'
 import { selectProject } from './selectProject'
 
-export const menuProjects = async (screen: blessed.Widgets.Screen) => {
+export const menuProjects = async (
+  screen: blessed.Widgets.Screen,
+  root: blessed.Widgets.LayoutElement
+) => {
   const menu = blessed.box({
+    parent: root,
     top: 'top',
     left: 'left',
     width: '60%',
     height: '70%',
     label: '| Project Management |',
     vi: true,
+    border: { type: 'line' },
+    style: {
+      border: {
+        fg: '#f0f0f0'
+      }
+    }
+  })
+
+  const menuLeft = blessed.box({
+    parent: root,
+    top: 'top',
+    left: '10%',
+    width: '30%',
+    height: '70%',
+    vi: true,
+    content: '\n Select something to view.',
+    label: '| Info |',
     border: { type: 'line' },
     style: {
       border: {
@@ -30,7 +51,7 @@ export const menuProjects = async (screen: blessed.Widgets.Screen) => {
     vi: true,
     style: {
       selected: {
-        bg: 'cyan',
+        bg: 'yellow',
         fg: '#000'
       },
       item: {
@@ -44,7 +65,9 @@ export const menuProjects = async (screen: blessed.Widgets.Screen) => {
     const name = item.getText()
     list.destroy()
 
-    if (name === 'Select Project') await selectProject(screen, menu)
+    if (name === 'Select Project') {
+      await selectProject(screen, menu, menuLeft, root)
+    }
   })
 
   list.select(0)

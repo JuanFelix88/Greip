@@ -17,7 +17,17 @@ export const renderView = async () => {
       autoPadding: true
     }))
 
-  screen.append(await menuProjects(screen))
+  const root = blessed.layout({
+    parent: screen,
+    top: 'center',
+    left: 'center',
+    width: '100%',
+    height: '100%',
+    border: 'bg',
+    layout: 'grid'
+  })
+
+  await menuProjects(screen, root)
 
   screen.render()
 
