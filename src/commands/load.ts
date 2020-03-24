@@ -5,65 +5,65 @@ import { Projects } from '../database'
 import { spawn } from 'child_process'
 
 export default {
-  name: 'load',
-  alias: ['l'],
-  run: async (toolbox: GluegunToolbox) => {
-    const {
-      parameters,
-      print: { error, success },
-      filesystem: {},
-      system
-    } = toolbox
+	name: 'load',
+	alias: ['l'],
+	run: async (toolbox: GluegunToolbox) => {
+		const {
+			parameters,
+			print: { error, success },
+			filesystem: {},
+			system
+		} = toolbox
 
-    prompt.registerPrompt('suggest', suggest)
+		prompt.registerPrompt('suggest', suggest)
 
-    const projectName = parameters.first
+		const projectName = parameters.first
 
-    if (!projectName) {
-      const projects = await Projects.findAll(() => true)
+		if (!projectName) {
+			const projects = await Projects.findAll(() => true)
 
-      const projectsName = projects.map(({ name }) => name)
+			const projectsName = projects.map(({ name }) => name)
 
-      const { projectName } = await prompt([
-        {
-          type: 'list',
-          name: 'projectName',
-          message: 'Choose the project according to the list below:',
-          choices: projectsName
-        }
-      ])
+			const { projectName } = await prompt([
+				{
+					type: 'list',
+					name: 'projectName',
+					message: 'Choose the project according to the list below:',
+					choices: projectsName
+				}
+			])
 
-      const project = projects.find(({ name }) => name === projectName)
+			const project = projects.find(({ name }) => name === projectName)
 
-      const { dir } = project
+			const { dir } = project
 
-      await system.exec(`code ${dir}`)
+			await system.exec(`code ${dir}`)
 
-      process.chdir(dir)
+			process.chdir(dir)
 
-      // spawn('bash', ['-i'], {
-      //   cwd: dir,
-      //   stdio: 'inherit'
-      // })
+			// spawn('bash', ['-i'], {
+			//   cwd: dir,
+			//   stdio: 'inherit'
+			// })
 
-      success('Project loaded!')
-    } else {
-      const [project] = await Projects.findAll(
-        ({ name }) => name === projectName
-      )
+			success('Project loaded!')
+		} else {
+			const [project] = await Projects.findAll(
+				({ name }) => name === projectName
+			)
 
-      if (!project) return error('Project not found by name, try again.')
+			if (!project) return error('Project not found by name, try again.')
 
-      const { dir } = project
+			const { dir } = project
 
-      await system.exec(`code ${dir}`)
+			await system.exec(`code ${dir}`)
 
-      spawn('bash', ['-i'], {
-        cwd: dir,
-        stdio: 'inherit'
-      })
+			spawn('bash', ['-i'], {
+				cwd: dir,
+				stdio: 'inherit'
+			})
 
-      success('Project loaded!')
-    }
-  }
+			success('Project loaded!')
+		}
+	}
 }
