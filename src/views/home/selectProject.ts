@@ -3,6 +3,7 @@ import { Projects } from '../../database'
 import { renderInfo } from './projectInfo'
 import { renderProjectController } from './projectController'
 import chalk = require('chalk')
+import { renderView } from '.'
 
 export const selectProject = async (
 	screen: blessed.Widgets.Screen,
@@ -24,10 +25,14 @@ export const selectProject = async (
 
 	menu.setLabel('| Projects |')
 
+	screen.render()
+
 	const list = blessed.list({
 		parent: menu,
-		top: 1,
+		top: 0,
+		focusable: true,
 		left: 1,
+		tags: true,
 		width: '95%',
 		align: 'left',
 		mouse: true,
@@ -43,23 +48,39 @@ export const selectProject = async (
 				fg: '#fff'
 			}
 		},
-		items: [chalk`{cyan [Previous]}`, ...projectsItems]
+		items: [chalk`{cyan [ ◄ ]}`, ...projectsItems]
 	})
 
 	const initialItem = 1
 
 	list.on('select item', async item => {
-		if (/previous/gi.test(item.getText())) {
+		if (/◄/gi.test(item.getText())) {
 			menuLeft.setContent('\n Select something to view.')
+			list.style.selected.bg = 'default'
+			list.style.selected.fg = 'green'
 			screen.render()
 			return
 		}
+
+		list.style.selected.bg = 'yellow'
+		list.style.selected.fg = '#fff'
+		screen.render()
+
 		const project = projects[projectsItems.indexOf(item.getText())]
 
 		await renderInfo(menuLeft, project)
 	})
 
 	list.on('select', async item => {
+		if (/◄/gi.test(item.getText())) {
+			list.destroy()
+			menuLeft.destroy()
+			menu.destroy()
+			screen.render()
+			await renderView()
+			return
+		}
+
 		const project = projects[projectsItems.indexOf(item.getText())]
 
 		list.destroy()

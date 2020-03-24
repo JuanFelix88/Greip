@@ -10,7 +10,7 @@
     "format": "prettier --write **/*.{js,ts,tsx,json}",
     "lint": "tslint -p .",
     "clean-build": "rm -rf ./build",
-    "compile": "tsc -p .",
+    "compile": "tsc -p . && cp -rf src/database/db.json build/database/db.json",
     "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
     "build": "yarn clean-build && yarn compile",
     "prepublishOnly": "yarn build",
