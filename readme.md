@@ -1,4 +1,4 @@
-<img src="./assets/repo.svg">
+<img src="./assets/repo_logo.png" style="width: 210px">
 
 ## Overview
 
@@ -12,19 +12,25 @@ Para utilizar a CLI, é recomendável que você instale de forma global e link a
 
 `npm`:
 
-    $ npm link greip
+```shell
+$ npm link greip
+```
 
 `yarn`:
 
-    $ yarn link greip
+```shell
+$ yarn link greip
+```
 
-Verifique se a CLi foi instalada de forma correta com o seguinte comando:
+Verifique se a CLI foi instalada de forma correta com o seguinte comando:
 
-    $ greip -v
+```shell
+$ greip -v # prints version
+```
 
 ## CLI Guide
 
-Para utilização da CLI, você poderá seguir os passos relacionados à baixo, semanticamente separados para cada qual finalidade você deseja usar.
+Para utilização da CLI, você poderá seguir os passos relacionados à baixo, semanticamente separados para cada qual finalidade você precisar usar.
 
 ### Register
 
@@ -32,7 +38,9 @@ Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastra
 
 -   Command:
 
-        $ greip register
+    ```shell
+    $ greip register
+    ```
 
     -   Necessary informations:
 
@@ -42,40 +50,64 @@ Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastra
 
 ### Login
 
-Se caso você já possuir um cadastro, poderá realizar login da através dos comandos:
+Se caso você já possuir um cadastro, poderá realizar login através dos comandos a seguir:
 
 -   Simplificado:
 
     -   Command:
 
-            $ greip login [email<string>] [password<string>]
+        ```shell
+        $ greip login [email=<string>] [password=<string>]
+        ```
 
-*   Interface:
+        -   Parameters:
+
+            -   email `[first]`
+
+                Email do login do usuário;
+
+            -   password `[second]`
+
+                Email do login do usuário;
+
+-   Interface:
 
     -   Command:
 
-            $ greip login
+        ```shell
+        $ greip login
+        ```
 
     -   Necessary interface information:
 
         -   E-mail;
         -   Password;
 
-### Interface Padrão
+### Interface Principal
 
-Para acessar a interface padrão da CLI, você poderá tentar omitindo qualquer comando ou parâmetro adicional, segue conforme à baixo:
-
--   Commands:
-
-        $ greip
-
-### New Project
-
-Para criar um novo projeto é necessário primeiramente que você esteja na pasta raiz do projeto ou repositório e então execute os comandos conforme à baixo:
+Para acessar a interface padrão da CLI, você poderá tentar executar omitindo qualquer comando ou parâmetro adicional, segue conforme à baixo:
 
 -   Command:
 
-        $ greip new project --name=[project<string>](optional)
+    ```shell
+    $ greip
+    ```
+
+### New Project
+
+Para criar um novo projeto é necessário primeiramente que você esteja na pasta raiz do projeto ou repositório desejado e então execute os comandos conforme à baixo:
+
+-   Command:
+
+    ```shell
+    $ greip new project --name="<string>"
+    ```
+
+    -   Flags (optional):
+
+        -   name
+
+            Nome do projeto que deseja criar;
 
     -   Necessary interface information:
 
@@ -84,6 +116,41 @@ Para criar um novo projeto é necessário primeiramente que você esteja na past
         -   Password (optional);
         -   Language (optional);
         -   Git Repo (optional);
+
+### Load Project
+
+No `Greip` você pode carregar um projeto rapidamente, segue informações conforme à baixo:
+
+-   Simplificado:
+
+    Para uso simplificado, informando o nome do projeto como parâmetro você carregará automaticamente caso seja encontrado na base de dados.
+
+    -   Command:
+
+        ```shell
+        $ greip load [name=<string>]
+        ```
+
+        -   Parameters:
+
+            -   name `[first]`
+
+                Nome do projeto (o parâmetro deverá corresponder exatamente ao nome do projeto [case sensitive]);
+
+-   Interface:
+
+    Opcionalmente você poderá acessar a interface para procurar manualmente e selecionar o projeto desejado.
+
+    -   Command:
+
+        ```shell
+        $ greip load
+        ```
+
+
+    -   Necessary interface information:
+
+        -   Select project;
 
 ## Customizing your CLI
 
