@@ -1,60 +1,97 @@
 import * as blessed from 'blessed'
 import { Projects } from '../../database'
 import { renderInfo } from './projectInfo'
+import { renderProjectController } from './projectController'
+import chalk = require('chalk')
+import { renderView } from '.'
 
 export const selectProject = async (
-  screen: blessed.Widgets.Screen,
-  menu: blessed.Widgets.BoxElement,
-  menuLeft: blessed.Widgets.BoxElement,
-  root: blessed.Widgets.LayoutElement
+	screen: blessed.Widgets.Screen,
+	menu: blessed.Widgets.BoxElement,
+	menuLeft: blessed.Widgets.BoxElement,
+	root: blessed.Widgets.LayoutElement
 ) => {
-  const projects = await Projects.findAll(() => true)
+	const projects = await Projects.findAll(() => true)
 
-  const projectsItems = projects.map(
-    ({ name, userName, createdAt }) =>
-      `${name} @${userName} - Added in ${createdAt.substr(0, 10)} at ${new Date(
-        createdAt
-      ).getUTCHours()}:${new Date(createdAt).getUTCMinutes()}:${new Date(
-        createdAt
-      ).getUTCSeconds()}`
-  )
+	const projectsItems = projects.map(
+		({ name, userName, createdAt }) =>
+			`${name} @${userName} - Added in ${createdAt.substr(
+				0,
+				10
+			)} at ${new Date(createdAt).getUTCHours()}:${new Date(
+				createdAt
+			).getUTCMinutes()}:${new Date(createdAt).getUTCSeconds()}`
+	)
 
-  menu.setLabel('| Select project |')
+	menu.setLabel('| Projects |')
 
-  const list = blessed.list({
-    parent: menu,
-    top: 1,
-    left: 1,
-    width: '95%',
-    align: 'left',
-    mouse: true,
-    keys: true,
-    vi: true,
-    style: {
-      selected: {
-        bg: 'yellow',
-        fg: '#000'
-      },
-      item: {
-        fg: '#fff'
-      }
-    },
-    items: projectsItems
-  })
+	screen.render()
 
-  const initialItem = 0
+	const list = blessed.list({
+		parent: menu,
+		top: 0,
+		focusable: true,
+		left: 1,
+		tags: true,
+		width: '95%',
+		align: 'left',
+		mouse: true,
+		keys: true,
+		vi: true,
+		style: {
+			selected: {
+				bg: 'yellow',
+				bold: true,
+				fg: '#fff'
+			},
+			item: {
+				fg: '#fff'
+			}
+		},
+		items: [chalk`{cyan [ ◄ ]}`, ...projectsItems]
+	})
 
-  list.on('select item', async item => {
-    const project = projects[projectsItems.indexOf(item.getText())]
+	const initialItem = 1
 
-    await renderInfo(menuLeft, project)
-  })
+	list.on('select item', async item => {
+		if (/◄/gi.test(item.getText())) {
+			menuLeft.setContent('\n Select something to view.')
+			list.style.selected.bg = 'default'
+			list.style.selected.fg = 'green'
+			screen.render()
+			return
+		}
 
-  list.focus()
+		list.style.selected.bg = 'yellow'
+		list.style.selected.fg = '#fff'
+		screen.render()
 
-  list.select(initialItem)
+		const project = projects[projectsItems.indexOf(item.getText())]
 
-  renderInfo(menuLeft, projects[initialItem])
+		await renderInfo(menuLeft, project)
+	})
 
-  screen.render()
+	list.on('select', async item => {
+		if (/◄/gi.test(item.getText())) {
+			list.destroy()
+			menuLeft.destroy()
+			menu.destroy()
+			screen.render()
+			await renderView()
+			return
+		}
+
+		const project = projects[projectsItems.indexOf(item.getText())]
+
+		list.destroy()
+		screen.render()
+		await renderProjectController(screen, menu, menuLeft, project)
+	})
+
+	list.focus()
+	list.select(initialItem)
+
+	renderInfo(menuLeft, projects[initialItem])
+
+	screen.render()
 }
