@@ -1,46 +1,47 @@
-<img src="./assets/repo_logo.png" style="width: 210px">
+<img src="./assets/repo_logo.png" style="width: 170px">
 
-## Overview
+# Overview
 
-`Greip` é um projeto criado para automatizar processos antes e durante o desenvolvimento de projetos com JavaScript e toda a sua stack. Focado em distribuição de design patterns, templetates e um controle de projetos mais amigável e ao mesmo tempo completo.
+**Greip** é um projeto criado para automatizar processos antes e durante o desenvolvimento de projetos com _JavaScript_ e toda a sua stack. Focado em distribuição de design patterns, templetates e um controle de projetos mais amigável e ao mesmo tempo completo.
 
 É importante lembrar que o projeto está aberto para contribuição e isso é muito importante para abranger melhor os projetos, diminuir os bugs o escalar em termos de qualidade nos serviços.
 
-## Install
+# Install
 
 Para utilizar a CLI, é recomendável que você instale de forma global e link a dependência com o seu terminal, siga as instruções conforme à baixo:
 
-`npm`:
+**npm**:
 
-```shell
-$ npm link greip
-```
+> ```shell
+> $ npm link greip
+> ```
 
-`yarn`:
+**yarn**:
 
-```shell
-$ yarn link greip
-```
+> ```shell
+> $ yarn link greip
+> ```
 
 Verifique se a CLI foi instalada de forma correta com o seguinte comando:
 
-```shell
-$ greip -v # prints version
-```
+> ```shell
+> $ greip -v # prints version
+> ```
 
-## CLI Guide
+# CLI Guide
 
 Para utilização da CLI, você poderá seguir os passos relacionados à baixo, semanticamente separados para cada qual finalidade você precisar usar.
 
-### Register
+## Register
 
 Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastrar na plataforma, mas não se preocupe, esse processo é simples e rápido, veja:
 
 -   Command:
 
-    ```shell
-    $ greip register
-    ```
+    > ```shell
+    > $ greip register
+    > ```
+
 
     -   Necessary informations:
 
@@ -48,7 +49,7 @@ Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastra
         -   Password;
         -   E-mail;
 
-### Login
+## Login
 
 Se caso você já possuir um cadastro, poderá realizar login através dos comandos a seguir:
 
@@ -56,9 +57,10 @@ Se caso você já possuir um cadastro, poderá realizar login através dos coman
 
     -   Command:
 
-        ```shell
-        $ greip login [email=<string>] [password=<string>]
-        ```
+        > ```shell
+        > $ greip login [email=<string>] [password=<string>]
+        > ```
+
 
         -   Parameters:
 
@@ -74,34 +76,34 @@ Se caso você já possuir um cadastro, poderá realizar login através dos coman
 
     -   Command:
 
-        ```shell
-        $ greip login
-        ```
+        > ```shell
+        > $ greip login
+        > ```
 
     -   Necessary interface information:
 
         -   E-mail;
         -   Password;
 
-### Interface Principal
+## Interface Principal
 
 Para acessar a interface padrão da CLI, você poderá tentar executar omitindo qualquer comando ou parâmetro adicional, segue conforme à baixo:
 
 -   Command:
 
-    ```shell
-    $ greip
-    ```
+    > ```shell
+    > $ greip
+    > ```
 
-### New Project
+## New Project
 
 Para criar um novo projeto é necessário primeiramente que você esteja na pasta raiz do projeto ou repositório desejado e então execute os comandos conforme à baixo:
 
 -   Command:
 
-    ```shell
-    $ greip new project --name="<string>"
-    ```
+    > ```shell
+    > $ greip new project --name="<string>"
+    > ```
 
     -   Flags (optional):
 
@@ -117,7 +119,7 @@ Para criar um novo projeto é necessário primeiramente que você esteja na past
         -   Language (optional);
         -   Git Repo (optional);
 
-### Load Project
+## Load Project
 
 No `Greip` você pode carregar um projeto rapidamente, segue informações conforme à baixo:
 
@@ -127,9 +129,10 @@ No `Greip` você pode carregar um projeto rapidamente, segue informações confo
 
     -   Command:
 
-        ```shell
-        $ greip load [name=<string>]
-        ```
+        > ```shell
+        > $ greip load [name=<string>]
+        > ```
+
 
         -   Parameters:
 
@@ -143,31 +146,14 @@ No `Greip` você pode carregar um projeto rapidamente, segue informações confo
 
     -   Command:
 
-        ```shell
-        $ greip load
-        ```
+        > ```shell
+        > $ greip load
+        > ```
 
 
     -   Necessary interface information:
 
         -   Select project;
-
-## Customizing your CLI
-
-Check out the documentation at https://github.com/infinitered/gluegun/tree/master/docs.
-
-## Publishing to NPM
-
-To package your CLI up for NPM, do this:
-
-```shell
-$ npm login
-$ npm whoami
-$ npm lint
-$ npm test
-(if typescript, run `npm run build` here)
-$ npm publish
-```
 
 # License
 
