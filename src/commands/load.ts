@@ -2,68 +2,79 @@ import { GluegunToolbox } from 'gluegun'
 import { prompt } from 'inquirer'
 import suggest from 'inquirer-prompt-suggest'
 import { Projects } from '../database'
-import { spawn } from 'child_process'
+import { spawn, exec } from 'child_process'
+import * as os from 'os'
+
+const loadProjectInUnix = ({}: GluegunToolbox, projectDir: string) => {
+    spawn('bash', ['-i'], {
+        cwd: projectDir,
+        stdio: 'inherit'
+    })
+}
+
+const loadProjectInWin = ({}: GluegunToolbox, projectDir: string) => {
+    spawn('cmd', ['-i'], {
+        cwd: projectDir,
+        stdio: 'inherit'
+    })
+}
 
 export default {
-	name: 'load',
-	alias: ['l'],
-	run: async (toolbox: GluegunToolbox) => {
-		const {
-			parameters,
-			print: { error, success },
-			filesystem: {},
-			system
-		} = toolbox
+    name: 'load',
+    alias: ['l'],
+    run: async (toolbox: GluegunToolbox) => {
+        const {
+            parameters,
+            print: { error, success },
+            filesystem: {},
+            system
+        } = toolbox
 
-		prompt.registerPrompt('suggest', suggest)
+        prompt.registerPrompt('suggest', suggest)
 
-		const projectName = parameters.first
+        const projectName = parameters.first
 
-		if (!projectName) {
-			const projects = await Projects.findAll(() => true)
+        if (!projectName) {
+            const projects = await Projects.findAll(() => true)
 
-			const projectsName = projects.map(({ name }) => name)
+            const projectsName = projects.map(({ name }) => name)
 
-			const { projectName } = await prompt([
-				{
-					type: 'list',
-					name: 'projectName',
-					message: 'Choose the project according to the list below:',
-					choices: projectsName
-				}
-			])
+            const { projectName } = await prompt([
+                {
+                    type: 'list',
+                    name: 'projectName',
+                    message: 'Choose the project according to the list below:',
+                    choices: projectsName
+                }
+            ])
 
-			const project = projects.find(({ name }) => name === projectName)
+            const project = projects.find(({ name }) => name === projectName)
 
-			const { dir } = project
+            const { dir } = project
 
-			await system.exec(`code ${dir}`)
+            await system.exec(`code ${dir}`)
 
-			process.chdir(dir)
+            const platform = os.platform()
 
-			// spawn('bash', ['-i'], {
-			//   cwd: dir,
-			//   stdio: 'inherit'
-			// })
+            const loadProjectTerminal = /win/i.test(platform)
+                ? loadProjectInWin
+                : loadProjectInUnix
 
-			success('Project loaded!')
-		} else {
-			const [project] = await Projects.findAll(
-				({ name }) => name === projectName
-			)
+            loadProjectTerminal(toolbox, dir)
 
-			if (!project) return error('Project not found by name, try again.')
+            success('Project loaded!')
+        } else {
+            const [project] = await Projects.findAll(
+                ({ name }) => name === projectName
+            )
 
-			const { dir } = project
+            if (!project) return error('Project not found by name, try again.')
 
-			await system.exec(`code ${dir}`)
+            const { dir } = project
 
-			spawn('bash', ['-i'], {
-				cwd: dir,
-				stdio: 'inherit'
-			})
+            await system.exec(`code ${dir}`)
 
-			success('Project loaded!')
-		}
-	}
+            success('Project loaded!')
+        }
+    }
 }

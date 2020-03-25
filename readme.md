@@ -85,7 +85,7 @@ Se caso você já possuir um cadastro, poderá realizar login através dos coman
         -   E-mail;
         -   Password;
 
-## 📋 Interface Principal
+## 📋 Main Interface
 
 Para acessar a interface padrão da CLI, você poderá tentar executar omitindo qualquer comando ou parâmetro adicional, segue conforme à baixo:
 
