@@ -32,7 +32,7 @@ Verifique se a CLI foi instalada de forma correta com o seguinte comando:
 
 Para utilização da CLI, você poderá seguir os passos relacionados à baixo, semanticamente separados para cada qual finalidade você precisar usar.
 
-## Register
+## 👤 Register
 
 Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastrar na plataforma, mas não se preocupe, esse processo é simples e rápido, veja:
 
@@ -49,7 +49,7 @@ Antes de iniciar na utilização da CLI, opcionalmente você poderá se cadastra
         -   Password;
         -   E-mail;
 
-## Login
+## ✅ Login
 
 Se caso você já possuir um cadastro, poderá realizar login através dos comandos a seguir:
 
@@ -85,7 +85,7 @@ Se caso você já possuir um cadastro, poderá realizar login através dos coman
         -   E-mail;
         -   Password;
 
-## Interface Principal
+## 📋 Interface Principal
 
 Para acessar a interface padrão da CLI, você poderá tentar executar omitindo qualquer comando ou parâmetro adicional, segue conforme à baixo:
 
@@ -95,7 +95,7 @@ Para acessar a interface padrão da CLI, você poderá tentar executar omitindo 
     > $ greip
     > ```
 
-## New Project
+## 🗂 New Project
 
 Para criar um novo projeto é necessário primeiramente que você esteja na pasta raiz do projeto ou repositório desejado e então execute os comandos conforme à baixo:
 
@@ -119,7 +119,7 @@ Para criar um novo projeto é necessário primeiramente que você esteja na past
         -   Language (optional);
         -   Git Repo (optional);
 
-## Load Project
+## 🗃 Load Project
 
 No `Greip` você pode carregar um projeto rapidamente, segue informações conforme à baixo:
 
