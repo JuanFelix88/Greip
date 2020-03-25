@@ -1,4 +1,4 @@
-<img src="./assets/repo_logo.png" style="width: 150px">
+<img src="./assets/repo_logo.png" style="width: 130px">
 
 # Overview
 
